@@ -3,7 +3,7 @@ import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { sign } from 'crypto';
+// import { sign } from 'crypto';
 import { AuthContext } from '../../context/AuthContext';
 
 import getValidationErros from '../../utils/getValidationErros';
@@ -23,7 +23,7 @@ interface SignInFormData {
 const SigIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { signIn } = useContext(AuthContext);
+  const { user, signIn } = useContext(AuthContext);
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
