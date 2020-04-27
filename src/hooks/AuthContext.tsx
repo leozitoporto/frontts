@@ -14,12 +14,13 @@ interface AuthState {
 interface AuthContextData {
   user: object;
   signIn(credentials: SignInCredentials): Promise<void>;
+  signOut(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setdata] = useState<AuthState>(() => {
+  const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@saloonvip:token');
     const user = localStorage.getItem('@saloonvip:user');
 
@@ -38,11 +39,18 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@saloonvip:token', token);
     localStorage.setItem('@saloonvip:user', JSON.stringify(user));
 
-    setdata({ token, user });
+    setData({ token, user });
+  }, []);
+
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@saloonvip:token');
+    localStorage.removeItem('@saloonvip:user');
+
+    setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
