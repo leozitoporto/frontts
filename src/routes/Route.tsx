@@ -19,6 +19,11 @@ const Route: React.FC<RouteProps> = ({
 }) => {
   const { user } = useAuth();
 
+  // CASOS ROTA PRIVADA/USUARIO LOGADO
+  // true/true = ok
+  // true/false = redirecionar para login
+  // false/true = redireciona para dashboard
+  // false/false = ok
   return (
     <ReactDOMRoute
       {...rest}
