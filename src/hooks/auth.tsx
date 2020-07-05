@@ -31,6 +31,9 @@ const AuthProvider: React.FC = ({ children }) => {
     const user = localStorage.getItem('@saloonvip:user');
 
     if (token && user) {
+      // coloca como padrao para todas as requisicoes (serve pra passar o token nas requisocoes)
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
       return { token, user: JSON.parse(user) };
     }
 
@@ -44,6 +47,9 @@ const AuthProvider: React.FC = ({ children }) => {
 
     localStorage.setItem('@saloonvip:token', token);
     localStorage.setItem('@saloonvip:user', JSON.stringify(user));
+
+    // coloca como padrao para todas as requisicoes (serve pra passar o token nas requisocoes)
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);
