@@ -69,6 +69,7 @@ const Profile: React.FC = () => {
           password_confirmation,
         } = data;
 
+        // Para nao enviar array da senha caso nao seja informado a atualizaçao da senha
         const formData = {
           name,
           email,
